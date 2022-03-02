@@ -2,6 +2,10 @@ body {
   border: 1px solid lightblue;
 }
 
+svg {
+  border: 1px solid orange;
+}
+
 .page-content-container {
   display: flex;
   flex-direction: column;
