@@ -1,5 +1,3 @@
-console.log('confirm D3 methods are available', d3)
-
 import { getEducationData, getCountyData } from './requests.js';
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -22,5 +20,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         .enter()
         .append("path")
         .attr("d", path)
+        .attr("class", "county")
+    svg.append("g")
+        .selectAll("path")
+        .data(topojson.feature(countyData, countyData.objects.states).features)
+        .enter()
+        .append("path")
+        .attr("d", path)
+        .attr("class", "state")
 
 })
