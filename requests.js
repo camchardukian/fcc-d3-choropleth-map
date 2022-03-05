@@ -11,8 +11,8 @@ const getEducationData = () => {
     return handleFetch('https://cdn.freecodecamp.org/testable-projects-fcc/data/choropleth_map/for_user_education.json')
 }
 
-const getCountyData = () => {
+const getLocationData = () => {
     return handleFetch('https://cdn.freecodecamp.org/testable-projects-fcc/data/choropleth_map/counties.json')
 }
 
-export { getEducationData, getCountyData };
+export { getEducationData, getLocationData };
