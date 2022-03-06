@@ -2,8 +2,6 @@ import { getEducationData, getLocationData } from './requests.js';
 
 document.addEventListener("DOMContentLoaded", async () => {
     const [educationData, locationData] = await Promise.all([getEducationData(), getLocationData()])
-    console.log('educationData', educationData)
-    console.log('locationData', locationData)
     const width = 1200;
     const height = 600;
     const padding = 60;
@@ -45,6 +43,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         else return COLORS_SCALE.DARKEST;
     };
 
+    const tooltip = d3.select("body")
+        .append("div")
+        .attr("id", "tooltip");
+
     svg.append("g")
         .selectAll("path")
         .data(topojson.feature(locationData, locationData.objects.counties).features)
@@ -55,6 +57,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         .attr("data-fips", (d) => educationData.filter((item) => item?.fips === d?.id)?.[0]?.fips)
         .attr("data-education", (d) => educationData.filter((item) => item?.fips === d?.id)?.[0]?.bachelorsOrHigher)
         .attr("fill", (d) => handleApplyFillColor(educationData.filter((item) => item?.fips === d?.id)?.[0]?.bachelorsOrHigher))
+        .on("mouseenter", (e) => {
+            const itemData = e.target?.__data__
+            const countyData = educationData.filter((item) => item?.fips === itemData?.id)?.[0]
+            tooltip
+                .style('top', `${e.pageY - 30}px`)
+                .style('left', `${e.pageX + 15}px`)
+                .transition()
+                .style("visibility", "visible")
+                .text(
+                    `${countyData?.area_name}, ${countyData?.state}
+                     ${countyData?.bachelorsOrHigher}%`
+                ).attr("data-education", countyData?.bachelorsOrHigher);
+        })
+        .on("mouseout", () => tooltip.transition().style("visibility", "hidden"));
 
     svg.append("g")
         .selectAll("path")
@@ -63,8 +79,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         .append("path")
         .attr("d", path)
         .attr("class", "state")
-
-
 
     const legendScale = d3.scaleLinear()
         .domain([0, 100])

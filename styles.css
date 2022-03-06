@@ -1,8 +1,15 @@
-#description {
-  font-size: 20px;
-}
 body {
   text-align: center;
+}
+
+.page-content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#description {
+  font-size: 20px;
 }
 
 .state {
@@ -16,8 +23,10 @@ body {
   stroke: white;
 }
 
-.page-content-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+#tooltip {
+  min-width: 100px;
+  background-color: lightblue;
+  padding: 4px 8px;
+  position: absolute;
+  white-space: pre-line;
 }
