@@ -45,9 +45,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const tooltip = d3.select("body")
         .append("div")
-        .attr("id", "tooltip");
+        .attr("id", "tooltip")
+        .style("visibility", "hidden")
 
     svg.append("g")
+        .style("transform", "translate(100px,0px)")
         .selectAll("path")
         .data(topojson.feature(locationData, locationData.objects.counties).features)
         .enter()
@@ -73,6 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         .on("mouseout", () => tooltip.transition().style("visibility", "hidden"));
 
     svg.append("g")
+        .style("transform", "translate(100px,0px)")
         .selectAll("path")
         .data(topojson.feature(locationData, locationData.objects.states).features)
         .enter()

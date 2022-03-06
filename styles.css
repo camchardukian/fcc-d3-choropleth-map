@@ -8,6 +8,10 @@ body {
   align-items: center;
 }
 
+#title {
+  margin-bottom: 0px;
+}
+
 #description {
   font-size: 20px;
 }
